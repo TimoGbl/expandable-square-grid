@@ -1,15 +1,20 @@
-
 var ExpandableGrid = (function() {
   "use strict"
   
+  var list;
+  var texts = [];
+  
   // Constructor
   var Init = function(element) {
- 
-  	var list = document.getElementById(element);
+ 	
+ 	// Get html list
+  	list = document.getElementById(element);
   	
+  	// Save texts and hide original
   	for (var i = 0; i < list.children.length; i++) {
-  		console.log(list.children[i]);
-  		list.children[i].children[1].style.display ='none';
+  		var listElement = list.children[i];
+  		texts.push(listElement.children[1].innerHTML);
+  		listElement.children[1].style.display ='none';
   	}
   };
   
