@@ -1,17 +1,19 @@
-.wrapper {
+ul {
     position: relative;
     width: 100%;
+    list-style-type: none;
 }
 
-.square {
-    float: left;
-    width: 20%;
-    padding-bottom: 20%;
-    transition: .3s ease-out;
+li {
+	float: left;
+    width: 25%;
+    background: red;
 }
 
-.square.active {
-    transform: scale(5, 2);
-    transform-origin: 25% 0%; /*x axis has to be 100/(5-1) * position -1 * – y axis 0 or 100 */
+li:nth-child(even) {
+	background: yellow;
+}
+
+li.active {
     background-color: blue !important;
 }
