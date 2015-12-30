@@ -7,8 +7,9 @@ var ExpandableGrid = (function() {
  
   	var list = document.getElementById(element);
   	
-  	for (var i = 0; i < list.childNodes.length; i++) {
-  		console.log(list.childNodes[i]);
+  	for (var i = 0; i < list.children.length; i++) {
+  		console.log(list.children[i]);
+  		list.children[i].children[1].style.display ='none';
   	}
   };
   
