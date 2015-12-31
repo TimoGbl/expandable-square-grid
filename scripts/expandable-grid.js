@@ -25,7 +25,9 @@ var ExpandableGrid = (function() {
   	list = document.getElementById(element);
   	
   	// Set css transition property
-  	list.style.transition = transitionProps.properties + ' ' + transitionProps.duration + ' ' + transitionProps.timing;
+  	list.style.transition = transitionProps.properties +
+  	    ' ' + transitionProps.duration +
+  	    ' ' + transitionProps.timing;
   	
   	// Save texts and hide original
   	for (var i = 0; i < list.children.length; i++) {
