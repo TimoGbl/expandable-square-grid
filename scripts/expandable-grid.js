@@ -18,18 +18,23 @@ var ExpandableGrid = (function() {
  	
  	// Save transition information
  	if (transitionInput) {
- 	    transitionProps.properties = transitionInput.properties;
- 	    transitionProps.duration = transitionInput.duration;
- 	    transitionProps.timing = transitionInput.timing;
+ 	    transitionProps = transitionInput;
  	}
  	
  	// Get html list
   	list = document.getElementById(element);
   	
+  	// Set css transition property
+  	list.style.transition = transitionProps.properties + ' ' + transitionProps.duration + ' ' + transitionProps.timing;
+  	
   	// Save texts and hide original
   	for (var i = 0; i < list.children.length; i++) {
   		var listElement = list.children[i];
+  		
+  		// Save detail texts
   		texts.push(listElement.children[1].innerHTML);
+  		
+  		// Hide detail texts
   		listElement.children[1].style.display ='none';
   	}
   };
