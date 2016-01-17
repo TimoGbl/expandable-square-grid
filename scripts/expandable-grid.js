@@ -78,7 +78,7 @@ var ExpandableGrid = (function() {
         expandetSquare.style.transition = transitionProps.properties + ' ' +
             transitionProps.timing + ' ' +
             transitionProps.duration + 's';
-        expandetSquare.setAttribute('class', 'expandetElement');
+        expandetSquare.classList.add('expandet-element');
         expandetSquare.style.overflow ='hidden';
 
         var newP = document.createElement('span');
