@@ -17,7 +17,7 @@ var ExpandableGrid = (function() {
 
     function toggleSquare(index) {
         if (expanded) {
-            expandetSquare.children[0].innerHTML = texts[index];
+            expandetSquare.replaceChild(texts[index], expandetSquare.childNodes[0]);
             expandetSquare.style.height = heights[index] + 'px';
         } else {
             expandetSquare.style.height ='0';
@@ -65,10 +65,7 @@ var ExpandableGrid = (function() {
             var listElement = list.children[i];
 
             // Save detail texts
-            texts.push(listElement.children[1].innerHTML);
-
-            // Hide detail texts
-            listElement.children[1].style.display ='none';
+            texts.push(listElement.children[1]);
 
             // Add event listeners
             listElement.addEventListener("click", click(listElement, i));
@@ -76,27 +73,22 @@ var ExpandableGrid = (function() {
 
         // Create new li
         expandetSquare = document.createElement('div');
-
         expandetSquare.style.width ='100%';
-
         expandetSquare.style.transition = transitionProps.properties + ' ' +
             transitionProps.timing + ' ' +
             transitionProps.duration + 's';
-
         expandetSquare.setAttribute('class', 'expandetElement');
 
-        var newP = document.createElement('p');
-        var textnode = document.createTextNode('Detail container');
-
-        newP.appendChild(textnode);
+        var newP = document.createElement('span');
         expandetSquare.appendChild(newP);
+
         list.insertBefore(expandetSquare, list.childNodes[list.children.length]);
 
         for (i = 0; i < texts.length; i++) {
-            expandetSquare.children[0].innerHTML = texts[i];
+            expandetSquare.replaceChild(texts[i], expandetSquare.childNodes[0]);
             heights.push(expandetSquare.clientHeight);
         }
-        expandetSquare.children[0].innerHTML = '';
+
         expandetSquare.style.height = '0';
     };
 

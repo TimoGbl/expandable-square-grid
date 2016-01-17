@@ -1,10 +1,10 @@
-ul {
+#list {
     position: relative;
     width: 100%;
     list-style-type: none;
 }
 
-li {
+div {
 	float: left;
     width: 25%;
     height: 100px;
@@ -12,11 +12,11 @@ li {
     cursor: pointer;
 }
 
-li:nth-child(even) {
+div:nth-child(even) {
 	background: yellow;
 }
 
-li.active {
+div.active {
     background-color: blue !important;
 }
 
