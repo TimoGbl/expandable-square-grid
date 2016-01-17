@@ -5,7 +5,7 @@ var ExpandableGrid = (function() {
     var list = {};
     var heights = [];
     var expandetSquare = {};
-    var texts = [];
+    var textElements = [];
     var transitionProps = {
         properties: 'height',
         duration: 0.5,
@@ -17,7 +17,7 @@ var ExpandableGrid = (function() {
 
     function toggleSquare(index) {
         if (expanded) {
-            expandetSquare.replaceChild(texts[index], expandetSquare.childNodes[0]);
+            expandetSquare.replaceChild(textElements[index], expandetSquare.childNodes[0]);
             expandetSquare.style.height = heights[index] + 'px';
         } else {
             expandetSquare.style.height ='0';
@@ -60,12 +60,12 @@ var ExpandableGrid = (function() {
         // Get html list
         list = document.getElementById(element);
 
-        // Save texts and hide original
+        // Save textElements and hide original
         for (i = 0; i < list.children.length; i++) {
             var listElement = list.children[i];
 
-            // Save detail texts
-            texts.push(listElement.children[1]);
+            // Save detail textElements
+            textElements.push(listElement.children[1]);
 
             // Add event listeners
             listElement.addEventListener("click", click(listElement, i));
@@ -73,19 +73,21 @@ var ExpandableGrid = (function() {
 
         // Create new li
         expandetSquare = document.createElement('div');
+        expandetSquare.style.height = 'auto';
         expandetSquare.style.width ='100%';
         expandetSquare.style.transition = transitionProps.properties + ' ' +
             transitionProps.timing + ' ' +
             transitionProps.duration + 's';
         expandetSquare.setAttribute('class', 'expandetElement');
+        expandetSquare.style.overflow ='hidden';
 
         var newP = document.createElement('span');
         expandetSquare.appendChild(newP);
 
         list.insertBefore(expandetSquare, list.childNodes[list.children.length]);
 
-        for (i = 0; i < texts.length; i++) {
-            expandetSquare.replaceChild(texts[i], expandetSquare.childNodes[0]);
+        for (i = 0; i < textElements.length; i++) {
+            expandetSquare.replaceChild(textElements[i], expandetSquare.childNodes[0]);
             heights.push(expandetSquare.clientHeight);
         }
 
