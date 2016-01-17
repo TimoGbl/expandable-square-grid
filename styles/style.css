@@ -7,7 +7,9 @@ ul {
 li {
 	float: left;
     width: 25%;
+    height: 100px;
     background: red;
+    cursor: pointer;
 }
 
 li:nth-child(even) {
@@ -16,4 +18,9 @@ li:nth-child(even) {
 
 li.active {
     background-color: blue !important;
+}
+
+.expandetElement {
+    background-color: black;
+    color: yellow;
 }
