@@ -4,23 +4,24 @@ var ExpandableGrid = (function() {
     // Data
     var list = {};
     var heights = [];
-    var expandetSquare = {};
+    var expandedSquare = {};
     var textElements = [];
     var transitionProps = {
-        properties: 'height',
         duration: 0.5,
         timing: 'cubic-bezier(0.5, 0.1, 0, 1)'
     };
 
     // State
-    var expanded = false;
+    // Tells toggle squarw if it should expand the grid or not
+    var expand = true;
 
+    // Adds the right content into the expandable element and expands it
     function toggleSquare(index) {
-        if (expanded) {
-            expandetSquare.replaceChild(textElements[index], expandetSquare.childNodes[0]);
-            expandetSquare.style.height = heights[index] + 'px';
+        if (expand) {
+            expandedSquare.replaceChild(textElements[index], expandedSquare.childNodes[0]);
+            expandedSquare.style.height = heights[index] + 'px';
         } else {
-            expandetSquare.style.height ='0';
+            expandedSquare.style.height ='0';
         }
     }
 
@@ -36,11 +37,12 @@ var ExpandableGrid = (function() {
             }
 
             if (!elementActive) {
-                // add class active to target
+                // If element wasn't active before, we have to add the active
+                // class and set the state to
                 element.classList.add('active');
-                expanded = true;
+                expand = true;
             } else {
-                expanded = false;
+                expand = false;
             }
 
             toggleSquare(index);
@@ -65,6 +67,9 @@ var ExpandableGrid = (function() {
             var listElement = list.children[i];
 
             // Save detail textElements
+            // Expecting the grid elements to habe to children
+            // 1. Text to be displayed in grid
+            // 2. Text to be displayed in expanded element
             textElements.push(listElement.children[1]);
 
             // Add event listeners
@@ -72,26 +77,36 @@ var ExpandableGrid = (function() {
         }
 
         // Create new li
-        expandetSquare = document.createElement('div');
-        expandetSquare.style.height = 'auto';
-        expandetSquare.style.width ='100%';
-        expandetSquare.style.transition = transitionProps.properties + ' ' +
+        expandedSquare = document.createElement('div');
+
+        // Set styles
+        expandedSquare.style.height = 'auto';
+        expandedSquare.style.width ='100%';
+
+        expandedSquare.style.transition = 'height ' +
             transitionProps.timing + ' ' +
             transitionProps.duration + 's';
-        expandetSquare.classList.add('expandet-element');
-        expandetSquare.style.overflow ='hidden';
 
-        var newP = document.createElement('span');
-        expandetSquare.appendChild(newP);
+        // Add stylable class to element
+        expandedSquare.classList.add('expandet-element');
 
-        list.insertBefore(expandetSquare, list.childNodes[list.children.length]);
+        // Add empty span element so the list element has content
+        var newSpan = document.createElement('span');
+        expandedSquare.appendChild(newSpan);
 
+        // Add new list element in the middle of the list
+        list.insertBefore(expandedSquare, list.childNodes[list.children.length]);
+
+        // Add each list elements info text to the new list element and
+        // save it's height for later because we have to set a specific height
+        // so that the transitin is  animating. this is not working with height auto
         for (i = 0; i < textElements.length; i++) {
-            expandetSquare.replaceChild(textElements[i], expandetSquare.childNodes[0]);
-            heights.push(expandetSquare.clientHeight);
+            expandedSquare.replaceChild(textElements[i], expandedSquare.childNodes[0]);
+            heights.push(expandedSquare.clientHeight);
         }
 
-        expandetSquare.style.height = '0';
+        // Collapse new list element
+        expandedSquare.style.height = '0';
     };
 
     return function(element, transitionInput) {
