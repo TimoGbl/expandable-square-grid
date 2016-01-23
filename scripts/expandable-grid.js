@@ -28,13 +28,13 @@ var ExpandableGrid = (function() {
     // Click list element
     function click(element, index) {
         return function() {
-            // Save if element was active before
-            var elementActive = element.classList.contains('active') ? true : false;
-
             // remove active class from all square
             for (var i = 0; i < list.children.length; i++) {
                 list.children[i].classList.remove('active');
             }
+
+            // Save if element was active before
+            var elementActive = element.classList.contains('active') ? true : false;
 
             if (!elementActive) {
                 // If element wasn't active before, we have to add the active
